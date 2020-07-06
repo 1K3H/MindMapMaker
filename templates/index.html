@@ -60,9 +60,28 @@
 
         });
     </script>
+    <script>
+        function push() {
+            let test_input = $('#test').val();
+            $.ajax({
+                type: 'POST',
+                url: '/push',
+                data: {
+                    'give_test_input':test_input
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        window.location.reload();
+                    };
+                }
+            });
+        };
+    </script>
 </head>
 
 <body>
+    <input id="test" type="text">
+    <button onclick="push()" type="button">push</button>
     <div id="cy"></div>
 </body>
 
