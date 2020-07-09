@@ -20,18 +20,6 @@
 
             container: $('#cy'), // container to render in
 
-            elements: [ // list of graph elements to start with
-                { // node a
-                    data: { id: 'a' }
-                },
-                { // node b
-                    data: { id: 'b' }
-                },
-                { // edge ab
-                    data: { id: 'ab', source: 'a', target: 'b' }
-                }
-            ],
-
             style: [ // the stylesheet for the graph
                 {
                     selector: 'node',
@@ -59,29 +47,67 @@
             }
 
         });
-    </script>
-    <script>
-        function push() {
-            let test_input = $('#test').val();
+
+        $(document).ready(function () {
+            list_node();
+        });
+
+        function list_node() {
             $.ajax({
-                type: 'POST',
-                url: '/push',
-                data: {
-                    'give_test_input':test_input
-                },
+                type: 'GET',
+                url: '/load',
+                data: {},
                 success: function (response) {
                     if (response['result'] == 'success') {
-                        window.location.reload();
+                    // db에서 받은 정보 반복문 돌리기
+                        let node_list = response['nodes'];
+                        for (let i = 0; i < node_list.length; i++) {
+                            let nodes = node_list[i];
+                            initCytoscape(nodes['from'], nodes['to'], nodes['edge'])
+                        }
                     };
                 }
             });
+        };
+
+        // cytoscape에 elements data를 추가하는 함수
+        function initCytoscape(a, b, c) {
+            cy.add([
+                { group: 'nodes', data: { id: a }, position: { x: 100, y: 100 } },
+                { group: 'nodes', data: { id: b }, position: { x: 200, y: 200 } },
+                { group: 'edges', data: { id: c, source: a, target: b } }
+            ]);
+        };
+
+    </script>
+    <script>
+
+        //POST 방식으로 input값을 app.py로 넘김
+        function save_node() {
+            let from_input = $('#from').val();
+            let to_input = $('#to').val();
+            $.ajax({
+                    type: 'POST',
+                    url: '/make',
+                    data: {
+                        'give_from_input': from_input,
+                        'give_to_input': to_input,
+                        'give_edge_id': from_input + to_input
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            window.location.reload();
+                        };
+                    }
+                });
         };
     </script>
 </head>
 
 <body>
-    <input id="test" type="text">
-    <button onclick="push()" type="button">push</button>
+    <input id="from" type="text">
+    <input id="to" type="text">
+    <button onclick="save_node()" type="button">push</button>
     <div id="cy"></div>
 </body>
 
