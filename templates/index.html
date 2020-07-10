@@ -86,28 +86,38 @@
         function save_node() {
             let from_input = $('#from').val();
             let to_input = $('#to').val();
-            $.ajax({
-                type: 'POST',
-                url: '/make',
-                data: {
-                    'give_from_input': from_input,
-                    'give_to_input': to_input,
-                    'give_edge_id': from_input + to_input
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        window.location.reload();
-                    };
-                }
-            });
+            // input 빈칸 검출
+            if (from_input == '') {
+                alert('FROM 값을 입력해 주세요.');
+            }
+            else if (to_input == '') {
+                alert('TO 값을 입력해 주세요.');
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/make',
+                    data: {
+                        'give_from_input': from_input,
+                        'give_to_input': to_input,
+                        'give_edge_id': from_input + to_input
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            window.location.reload();
+                        };
+                    }
+                });
+            };
         };
+        
     </script>
 </head>
 
 <body>
-    <input id="from" type="text">
-    <input id="to" type="text">
-    <button onclick="save_node()" type="button">push</button>
+    <input id="from" type="text" placeholder="FROM">
+    <input id="to" type="text" placeholder="TO">
+    <button onclick="save_node()" type="button">CREATE</button>
     <div id="cy"></div>
 </body>
 
