@@ -39,13 +39,7 @@
                         'curve-style': 'bezier'
                     }
                 }
-            ],
-
-            layout: {
-                name: 'grid',
-                rows: 1
-            }
-
+            ]
         });
 
         $(document).ready(function () {
@@ -59,7 +53,7 @@
                 data: {},
                 success: function (response) {
                     if (response['result'] == 'success') {
-                    // db에서 받은 정보 반복문 돌리기
+                        // db에서 받은 정보 반복문 돌리기
                         let node_list = response['nodes'];
                         for (let i = 0; i < node_list.length; i++) {
                             let nodes = node_list[i];
@@ -73,10 +67,16 @@
         // cytoscape에 elements data를 추가하는 함수
         function initCytoscape(a, b, c) {
             cy.add([
-                { group: 'nodes', data: { id: a }, position: { x: 100, y: 100 } },
-                { group: 'nodes', data: { id: b }, position: { x: 200, y: 200 } },
+                { group: 'nodes', data: { id: a } },
+                { group: 'nodes', data: { id: b } },
                 { group: 'edges', data: { id: c, source: a, target: b } }
             ]);
+            // layout 설정하는 부분
+            const layout = cy.layout({
+                name: 'cose',
+            });
+
+            layout.run();
         };
 
     </script>
@@ -87,19 +87,19 @@
             let from_input = $('#from').val();
             let to_input = $('#to').val();
             $.ajax({
-                    type: 'POST',
-                    url: '/make',
-                    data: {
-                        'give_from_input': from_input,
-                        'give_to_input': to_input,
-                        'give_edge_id': from_input + to_input
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            window.location.reload();
-                        };
-                    }
-                });
+                type: 'POST',
+                url: '/make',
+                data: {
+                    'give_from_input': from_input,
+                    'give_to_input': to_input,
+                    'give_edge_id': from_input + to_input
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        window.location.reload();
+                    };
+                }
+            });
         };
     </script>
 </head>
