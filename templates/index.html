@@ -139,7 +139,24 @@
                 });
             };
         };
-        
+
+        function reset() {
+            if (confirm("모든 정보가 삭제됩니다. 진행하시겠습니까?")) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/reset',
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+            else {
+                alert('RESET 취소됨')
+            }
+        };
+
     </script>
 </head>
 
@@ -148,6 +165,7 @@
     <input id="to" type="text" placeholder="TO">
     <button onclick="save_node()" type="button">CREATE</button>
     <button onclick="delete_node()" type="button">DELETE</button>
+    <button onclick="reset()" type="button">RESET</button>
     <div id="cy"></div>
 </body>
 
