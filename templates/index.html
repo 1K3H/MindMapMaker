@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mind Map Maker</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <style>
         h1 {
             padding-bottom: 5px;
@@ -191,12 +198,20 @@
             }
         };
 
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
     </script>
 </head>
 
 <body>
     <h1>Mind Map Maker</h1>
     <div class="edit_box">
+        <button type="button" class="btn btn-dark" data-toggle="popover" data-placement="bottom" data-html="true"
+            title="<strong>사용법</strong>" data-content="<strong>CREATE</strong> : 'FROM'입력값과 'TO'입력값을 갖는 요소들, 'FROM'에서 'TO'로 향하는 화살표를 <strong>생성</strong>합니다.<br><br>
+                <strong>DELETE</strong> : 'FROM'입력값과 'TO'입력값을 갖는 요소들, 'FROM'에서 'TO'로 향하는 화살표를 <strong>삭제</strong>합니다. <br><br>
+                <strong>RESET</strong> : 모든 요소를 <strong>전체 삭제</strong>합니다.">❔</button>
         <input id="from" type="text" class="form-control" placeholder="FROM">
         <input id="to" type="text" class="form-control" placeholder="TO">
         <button onclick="save_node()" class="btn btn-dark" type="button">CREATE</button>
