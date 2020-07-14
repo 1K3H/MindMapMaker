@@ -4,12 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mind Map Maker</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
+        h1 {
+            padding-bottom: 5px;
+            font-size: 45px;
+            text-align: center;
+            border-bottom: 5px solid black;
+        }
+
+        input {
+            border: 3px solid black;
+        }
+
         #cy {
+            border: 5px solid black;
+            padding: 0px;
             height: 550px;
+        }
+
+        .edit_box {
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 95%;
+        }
+
+        .form-control {
+            width: inherit;
+            display: inline;
+            border: solid black;
+        }
+
+        .btn {
+            margin-bottom: 2px;
         }
     </style>
 
@@ -161,11 +194,14 @@
 </head>
 
 <body>
-    <input id="from" type="text" placeholder="FROM">
-    <input id="to" type="text" placeholder="TO">
-    <button onclick="save_node()" type="button">CREATE</button>
-    <button onclick="delete_node()" type="button">DELETE</button>
-    <button onclick="reset()" type="button">RESET</button>
+    <h1>Mind Map Maker</h1>
+    <div class="edit_box">
+        <input id="from" type="text" class="form-control" placeholder="FROM">
+        <input id="to" type="text" class="form-control" placeholder="TO">
+        <button onclick="save_node()" class="btn btn-dark" type="button">CREATE</button>
+        <button onclick="delete_node()" class="btn btn-dark" type="button">DELETE</button>
+        <button onclick="reset()" class="btn btn-danger" type="button">RESET</button>
+    </div>
     <div id="cy"></div>
 </body>
 
